@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 
 // directorio publico 
-app.use("/archivos", express.static(path.join(__dirname, 'archivos')))
+//app.use("/archivos", express.static(path.join(__dirname, 'archivos')))
 
 app.get('/', function(req, res, next){
   res.send("API de Red Social");
