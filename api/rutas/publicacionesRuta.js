@@ -1,10 +1,3 @@
-// const router = require('express').Router();
-
-
-// router.get("/feed", function(req,res,next) {
-
-// })
-
 const router = require('express').Router();
 const publicacionesServicio = require('../servicios/publicacionesServicios');
 
