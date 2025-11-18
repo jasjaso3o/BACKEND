@@ -26,22 +26,6 @@ router.post("/", function(req, res, next){
     })
 })
 
-// router.put("/:", function(req, res, next){
-//   const {usuario_id} = req.params;
-//   const {nombre, user, pass} = req.body;
-
-//   let sql = "UPDATE usuarios SET nombre = ?, user = ?, pass = ? WHERE id = ?";
-
-//   db.query(sql, [nombre, user, pass, usuario_id])
-//   .then(() => {
-//     res.status(201).send("Guardado");
-//   })
-//   .catch((error) => {
-//     console.error(error);
-//     res.status(500).send("Ocurrió un error");
-//   })
-// })
-
 router.delete("/:idPublicacion", function(req, res, next){
   const {idPublicacion} = req.params;
 
@@ -57,5 +41,3 @@ router.delete("/:idPublicacion", function(req, res, next){
 
 
 module.exports = router;
-
-

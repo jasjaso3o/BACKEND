@@ -14,4 +14,10 @@ const publicacionesRouter = require('./rutas/publicacionesRuta');
 router.use("/publicaciones", publicacionesRouter);
 //router.use("/usuarios", usuariosRouter);
 
+const usuariosRouter = require('./rutas/usuariosRuta');
+//const usuariosRouter = require('./usuarios/main');
+
+router.use("/usuarios", usuariosRouter);
+
+
 module.exports = router;

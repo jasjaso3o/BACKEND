@@ -33,6 +33,35 @@ const sql = `
   })
 }
 
-module.exports = {
-  obtenerPublicacionesBD
+function crearPublicacion(idUsuario, titulo, descripcion, imagen) {
+  
+  let sql = "INSERT INTO publicacion (idUsuario, titulo, descripcion, imagen)";
+  sql += " VALUES (?, ?, ?, ?)";
+
+  return db.query(sql, [idUsuario, titulo, descripcion, imagen])
+  .then((publicacionCreada) => {
+    console.log('Publicación creada');  
+    return publicacionCreada;
+  })
+  .catch((error) => {
+    console.error(error);
+    throw error;
+  })
 }
+
+function eliminarPublicacion(idPublicacion) {
+  const sql = "DELETE FROM publicacion WHERE idPublicacion = ?";
+  return db.query(sql, [idPublicacion])
+  .then(() => {
+    console.log('Publicación eliminada');
+  })
+  .catch((error) => {
+    console.error(error);
+    throw error;
+  })
+}
+
+module.exports = {
+  obtenerPublicacionesBD, crearPublicacion, eliminarPublicacion
+}
+

@@ -1,9 +1,17 @@
 const publicacionesAcceso = require('../acceso/publicacionesAcceso');
 
-function obtenerPublicaciones() {
+function obtenerPublicacionesBD() {
   return publicacionesAcceso.obtenerPublicacionesBD();
 }
 
+function crearPublicacion(idUsuario, titulo, descripcion, imagen) {
+  return publicacionesAcceso.crearPublicacion(idUsuario, titulo, descripcion, imagen);
+}
+
+function eliminarPublicacion(idPublicacion) {
+  return publicacionesAcceso.eliminarPublicacion(idPublicacion);
+}
+
 module.exports = {
-  obtenerPublicaciones
+  obtenerPublicacionesBD, crearPublicacion, eliminarPublicacion
 }
