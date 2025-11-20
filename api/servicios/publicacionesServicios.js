@@ -4,8 +4,8 @@ function obtenerPublicacionesBD() {
   return publicacionesAcceso.obtenerPublicacionesBD();
 }
 
-function crearPublicacion(idUsuario, titulo, descripcion, imagen) {
-  return publicacionesAcceso.crearPublicacion(idUsuario, titulo, descripcion, imagen);
+function crearPublicacion(publicacionDatos) {
+  return publicacionesAcceso.crearPublicacion(publicacionDatos);
 }
 
 function eliminarPublicacion(idPublicacion) {

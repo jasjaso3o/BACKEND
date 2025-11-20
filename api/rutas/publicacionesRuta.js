@@ -15,8 +15,8 @@ router.get("/", function(req, res, next){
 })
 
 router.post("/", function(req, res, next){
-  const {idUsuario, titulo, descripcion, imagen} = req.body;
-  publicacionesServicio.crearPublicacion(idUsuario, titulo, descripcion, imagen)
+  const publicacionDatos = req.body;
+  publicacionesServicio.crearPublicacion(publicacionDatos)
   .then((publicacionCreada) => {
       res.json(publicacionCreada);
     })

@@ -33,7 +33,7 @@ const sql = `
   })
 }
 
-function crearPublicacion(idUsuario, titulo, descripcion, imagen) {
+function crearPublicacion({idUsuario, titulo, descripcion, imagen}) {
   
   let sql = "INSERT INTO publicacion (idUsuario, titulo, descripcion, imagen)";
   sql += " VALUES (?, ?, ?, ?)";

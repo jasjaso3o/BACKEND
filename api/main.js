@@ -19,5 +19,8 @@ const usuariosRouter = require('./rutas/usuariosRuta');
 
 router.use("/usuarios", usuariosRouter);
 
+const comentariosRouter = require('./rutas/comentariosRuta');
+
+router.use("/comentarios", comentariosRouter);
 
 module.exports = router;

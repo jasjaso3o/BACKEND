@@ -1,7 +1,7 @@
 const usuariosAcceso = require('../acceso/usuariosAcceso');
 
 function obtenerUsuarios() {
-  return usuariosAcceso.obtenerUsuariosBD();
+  return usuariosAcceso.obtenerUsuarios();
 }
 
 function crearUsuario(usuarioDatos /*nombreUsuario, email, password, fotoPerfil, portada, apodo, biografiaPrincipal, biografiaSecundaria, privacidad*/) {
@@ -13,6 +13,8 @@ function actualizarUsuario(idUsuario, usuarioDatos) {
 }
 
 function eliminarUsuario(idUsuario) {
+  console.log('fdfksdfdsf', idUsuario);
+  
   return usuariosAcceso.eliminarUsuario(idUsuario);
 }
 

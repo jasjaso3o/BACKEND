@@ -1,4 +1,5 @@
 const express = require('express');
+//const cors = require('cors');
 const path = require("path");
 
 require('dotenv').config();
@@ -10,6 +11,12 @@ const apiRouter = require('./api/main');
 const app = express();
 
 app.use(express.json());
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 
 app.get('/', function(req, res, next){

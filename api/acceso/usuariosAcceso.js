@@ -1,9 +1,9 @@
 const db = require('../conexion');
 
 function obtenerUsuariosBD() {
-const sql = `
-  SELECT *
-    FROM usuarios
+  const sql = `
+    SELECT *
+      FROM usuarios
   `;
 
   return db.query(sql)
@@ -61,8 +61,10 @@ function actualizarUsuario(idUsuario, usuarioDatos) {
 function eliminarUsuario(idUsuario) {
   const sql = "DELETE FROM usuarios WHERE idUsuario = ?";
   return db.query(sql, [idUsuario])
-  .then(() => {
-    console.log('Usuario eliminado');
+  .then((respuesta) => {
+    console.log('Usuario eliminado', respuesta);
+    console.log(idUsuario);
+
   })
   .catch((error) => {
     console.error(error);

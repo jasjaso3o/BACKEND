@@ -1,35 +1,35 @@
 const router = require('express').Router();
-const publicacionesServicio = require('../servicios/publicacionesServicios');
+const comentariosServicio = require('../servicios/comentariosServicios');
 
 router.get("/", function(req, res, next){
   const { busqueda } = req.query;
   
-  publicacionesServicio.obtenerPublicacionesBD(busqueda)
-    .then((publicaciones) => {
-      res.json(publicaciones);
+  comentariosServicio.obtenerComentarios(busqueda)
+    .then((comentarios) => {
+      res.json(comentarios);
     })
     .catch((error) => {
       console.error(error);
-      res.status(500).send("Ocurrió un error al obtener publicaciones");
+      res.status(500).send("Ocurrió un error al traer los comentarios");
     })
 })
 
 router.post("/", function(req, res, next){
-  const {idUsuario, titulo, descripcion, imagen} = req.body;
-  publicacionesServicio.crearPublicacion(idUsuario, titulo, descripcion, imagen)
-  .then((publicacionCreada) => {
-      res.json(publicacionCreada);
+  const comentarioDatos = req.body;
+  comentariosServicio.crearComentario(comentarioDatos)
+  .then((comentarioCreado) => {
+      res.json(comentarioCreado);
     })
     .catch((error) => {
       console.error(error);
-      res.status(500).send("Ocurrió un error al crear la publicación");
+      res.status(500).send("Ocurrió un error al crear el comentario");
     })
 })
 
-router.delete("/:idPublicacion", function(req, res, next){
-  const {idPublicacion} = req.params;
+router.delete("/:idComentario", function(req, res, next){
+  const {idComentario} = req.params;
 
-  publicacionesServicio.eliminarPublicacion(idPublicacion)
+  comentariosServicio.eliminarComentario(idComentario)
   .then(() => {
     res.status(200).send("eliminado");
   })
