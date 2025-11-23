@@ -49,6 +49,12 @@ function crearPublicacion({idUsuario, titulo, descripcion, imagen}) {
   })
 }
 
+function buscarPorId(idPublicacion) {
+  const sql = "SELECT * FROM publicacion WHERE idPublicacion = ?";
+  return db.query(sql, [idPublicacion])
+    .then(([rows]) => rows.length ? rows[0] : null);
+}
+
 function eliminarPublicacion(idPublicacion) {
   const sql = "DELETE FROM publicacion WHERE idPublicacion = ?";
   return db.query(sql, [idPublicacion])
@@ -62,6 +68,6 @@ function eliminarPublicacion(idPublicacion) {
 }
 
 module.exports = {
-  obtenerPublicacionesBD, crearPublicacion, eliminarPublicacion
+  obtenerPublicacionesBD, crearPublicacion, eliminarPublicacion, buscarPorId
 }
 

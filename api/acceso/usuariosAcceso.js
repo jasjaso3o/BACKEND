@@ -33,9 +33,14 @@ function crearUsuario({nombreUsuario, email, password, fotoPerfil, portada, apod
   })
 }
 
+function buscarPorId(idUsuario) {
+  const sql = "SELECT * FROM usuarios WHERE idUsuario = ?";
+  return db.query(sql, [idUsuario])
+    .then(([rows]) => rows.length ? rows[0] : null);
+}
+
 function actualizarUsuario(idUsuario, usuarioDatos) {
   const { nombreUsuario, fotoPerfil, portada, apodo, biografiaPrincipal, biografiaSecundaria, privacidad } = usuarioDatos;
-
 
   let sql = "UPDATE usuarios SET nombreUsuario = ?, fotoPerfil = ?, portada = ?, apodo = ?, biografiaPrincipal = ?, biografiaSecundaria = ?, privacidad = ? WHERE idUsuario = ?";
   return db.query(sql, [
@@ -74,5 +79,5 @@ function eliminarUsuario(idUsuario) {
 
 
 module.exports = {
-  obtenerUsuariosBD, crearUsuario, actualizarUsuario, eliminarUsuario
+  obtenerUsuariosBD, crearUsuario, buscarPorId, actualizarUsuario, eliminarUsuario
 }

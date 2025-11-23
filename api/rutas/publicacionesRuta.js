@@ -53,6 +53,8 @@ router.delete("/:idPublicacion", function(req, res, next){
     console.error(error);
     res.status(500).send("Ocurrió un error");
   })
+
+  
 })
 
 

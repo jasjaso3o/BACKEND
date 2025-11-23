@@ -30,9 +30,11 @@ router.post("/", function(req, res, next){
 
 router.put("/:idUsuario", function(req, res, next){
   const {idUsuario} = req.params;
-  const usuarioDatos = req.body;
+  const usuarioDatos = req.body.datos;
+  //solo por el momento hasta el jwt
+  const usuarioQueEdita = req.body.usuario;
 
-  usuariosServicio.actualizarUsuario(idUsuario, usuarioDatos)
+  usuariosServicio.actualizarUsuario(idUsuario, usuarioDatos, usuarioQueEdita)
   .then((usuarioActualizado) => {
     res.json(usuarioActualizado);
   })
