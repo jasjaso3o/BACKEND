@@ -2,7 +2,7 @@ const router = require('express').Router();
 const publicacionesServicio = require('../servicios/publicacionesServicios');
 
 router.get("/", function(req, res, next){
-  const { busqueda } = req.query;
+  const { busqueda, idUsuario } = req.query;
   
   publicacionesServicio.obtenerPublicacionesBD(busqueda)
     .then((publicaciones) => {
@@ -12,6 +12,30 @@ router.get("/", function(req, res, next){
       console.error(error);
       res.status(500).send("Ocurrió un error al obtener publicaciones");
     })
+})
+
+router.get("/usuario/:idUsuario", function(req, res, next){
+  const { idUsuario } = req.params;
+  const { busqueda } = req.query;
+  
+  publicacionesServicio.obtenerPublicacionesPorUsuario(idUsuario, busqueda)
+    .then((publicaciones) => res.json(publicaciones))
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Ocurrió un error al obtener publicaciones del usuario");
+    });
+})
+
+router.get("/:idPublicacion", function(req, res, next){
+  const { idPublicacion } = req.params;
+  const { busqueda } = req.query;
+  
+  publicacionesServicio.obtenerPublicacion(idPublicacion, busqueda)
+    .then((publicacion) => res.json(publicacion))
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Ocurrió un error al obtener la publicación");
+    });
 })
 
 router.post("/", function(req, res, next){
@@ -25,6 +49,8 @@ router.post("/", function(req, res, next){
       res.status(500).send("Ocurrió un error al crear la publicación");
     })
 })
+
+
 
 // router.put("/:", function(req, res, next){
 //   const {usuario_id} = req.params;

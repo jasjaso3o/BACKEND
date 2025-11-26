@@ -4,6 +4,10 @@ function obtenerUsuarios() {
   return usuariosAcceso.obtenerUsuarios();
 }
 
+function obtenerUsuarioPorId(idUsuario) {
+  return usuariosAcceso.obtenerUsuarioPorId(idUsuario);
+}
+
 function crearUsuario(usuarioDatos) {
   return usuariosAcceso.crearUsuario(usuarioDatos);
 }
@@ -13,21 +17,19 @@ function actualizarUsuario(idUsuario, usuarioDatos, usuarioQueEdita) {
   return usuariosAcceso.buscarPorId(idUsuario)
     .then(usuario => {
   
-      // ❌ No existe → Error 404
       if (!usuario) {
         const error = new Error("El usuario no existe");
         error.codigo = 404;
         throw error;
       }
   
-      // 2️⃣ Verificar permiso (temporal hasta usar JWT)
+      // temporal hasta usar JWT
       if (usuario.idUsuario !== usuarioQueEdita.idUsuario) {
         const error = new Error("No puedes editar los datos de otro usuario");
         error.codigo = 403;
         throw error;
       }
   
-      // 3️⃣ Editar usuario
       return usuariosAcceso.actualizarUsuario(idUsuario, usuarioDatos);
     })
     .then(() => ({
@@ -44,5 +46,5 @@ function eliminarUsuario(idUsuario) {
 }
 
 module.exports = {
-  obtenerUsuarios, crearUsuario, actualizarUsuario, eliminarUsuario
+  obtenerUsuarios,  obtenerUsuarioPorId, crearUsuario, actualizarUsuario, eliminarUsuario
 }

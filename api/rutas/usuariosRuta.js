@@ -1,10 +1,24 @@
 const router = require('express').Router();
 const usuariosServicio = require('../servicios/usuariosServicios');
 
-router.get("/todos", function(req, res, next){
+router.get("/", function(req, res, next){
   const { busqueda } = req.query;
   
   usuariosServicio.obtenerUsuarios(busqueda)
+    .then((usuarios) => {
+      res.json(usuarios);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Ocurrió un error al obtener usuarios");
+    })
+})
+
+router.get("/:idUsuario", function(req, res, next){
+  const { busqueda } = req.query;
+  const {idUsuario} = req.params;
+  
+  usuariosServicio.obtenerUsuarioPorId(idUsuario)
     .then((usuarios) => {
       res.json(usuarios);
     })

@@ -4,6 +4,14 @@ function obtenerPublicacionesBD() {
   return publicacionesAcceso.obtenerPublicacionesBD();
 }
 
+function obtenerPublicacionesPorUsuario(idUsuario) {
+  return publicacionesAcceso.obtenerPublicacionesPorUsuario(idUsuario);
+}
+
+function obtenerPublicacion(idPublicacion) {
+  return publicacionesAcceso.obtenerPublicacion(idPublicacion);
+}
+
 function crearPublicacion(publicacionDatos) {
   return publicacionesAcceso.crearPublicacion(publicacionDatos);
 }
@@ -27,5 +35,5 @@ function eliminarPublicacion(idPublicacion) {
 }
 
 module.exports = {
-  obtenerPublicacionesBD, crearPublicacion, eliminarPublicacion
+  obtenerPublicacionesBD, obtenerPublicacionesPorUsuario, obtenerPublicacion, crearPublicacion, eliminarPublicacion
 }
