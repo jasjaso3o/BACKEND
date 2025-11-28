@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const comentariosServicio = require('../servicios/comentariosServicios');
 
-router.get("/", function(req, res, next){
+router.get("/:idPublicacion", function(req, res, next){
   const { busqueda } = req.query;
+  const { idPublicacion } = req.params;
   
-  comentariosServicio.obtenerComentarios(busqueda)
+  comentariosServicio.obtenerComentarios(busqueda, idPublicacion)
     .then((comentarios) => {
       res.json(comentarios);
     })

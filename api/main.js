@@ -19,8 +19,11 @@ const usuariosRouter = require('./rutas/usuariosRuta');
 
 router.use("/usuarios", usuariosRouter);
 
-const comentariosRouter = require('./rutas/comentariosRuta');
 
+const comentariosRouter = require('./rutas/comentariosRuta');
 router.use("/comentarios", comentariosRouter);
+
+const loginRouter = require('./servicios/login');
+router.use("/login", loginRouter);
 
 module.exports = router;

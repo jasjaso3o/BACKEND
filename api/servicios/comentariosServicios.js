@@ -1,7 +1,7 @@
 const comentariosAcceso = require('../acceso/comentariosAcceso');
 
-function obtenerComentarios() {
-  return comentariosAcceso.obtenerComentarios();
+function obtenerComentarios(idPublicacion) {
+  return comentariosAcceso.obtenerComentarios(idPublicacion);
 }
 
 function crearComentario(comentarioDatos) {

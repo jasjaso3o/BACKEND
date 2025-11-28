@@ -2,7 +2,7 @@ const router = require('express').Router();
 const publicacionesServicio = require('../servicios/publicacionesServicios');
 
 router.get("/", function(req, res, next){
-  const { busqueda, idUsuario } = req.query;
+  const { busqueda} = req.query;
   
   publicacionesServicio.obtenerPublicacionesBD(busqueda)
     .then((publicaciones) => {
