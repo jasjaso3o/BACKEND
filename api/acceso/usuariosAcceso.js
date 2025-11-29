@@ -37,10 +37,9 @@ function obtenerUsuarioPorId(idUsuario) {
     COALESCE(r.total_me_gusta, 0) AS totalMeGusta,
     COALESCE(sigue.total_seguidos, 0) AS totalSeguidos,
     COALESCE(seguidores.total_seguidores, 0) AS totalSeguidores
-FROM
+    FROM
     usuarios u
--- 1. Conteo de Publicaciones
-LEFT JOIN (
+    LEFT JOIN (
     SELECT
         idUsuario,
         COUNT(idPublicacion) AS total_publicaciones
@@ -48,10 +47,8 @@ LEFT JOIN (
         publicacion
     GROUP BY
         idUsuario
-) p ON u.idUsuario = p.idUsuario
-
--- 2. Conteo de "Me Gusta" en Publicaciones del Usuario
-LEFT JOIN (
+    ) p ON u.idUsuario = p.idUsuario
+    LEFT JOIN (
     SELECT
         p.idUsuario,
         COUNT(r.idReaccion) AS total_me_gusta
@@ -63,10 +60,8 @@ LEFT JOIN (
         r.tipo = 'me gusta'
     GROUP BY
         p.idUsuario
-) r ON u.idUsuario = r.idUsuario
-
--- 3. Conteo de Usuarios que el Perfil *SIGUE* (Emisor)
-LEFT JOIN (
+    ) r ON u.idUsuario = r.idUsuario
+    LEFT JOIN (
     SELECT
         idUsuarioEmisor,
         COUNT(idSolicitudAmistad) AS total_seguidos
@@ -76,23 +71,21 @@ LEFT JOIN (
         estado = 'aceptada' -- Asumiendo que "seguir" es una solicitud aceptada
     GROUP BY
         idUsuarioEmisor
-) sigue ON u.idUsuario = sigue.idUsuarioEmisor
-
--- 4. Conteo de Usuarios que *SIGUEN* al Perfil (Receptor)
-LEFT JOIN (
+    ) sigue ON u.idUsuario = sigue.idUsuarioEmisor
+    LEFT JOIN (
     SELECT
         idUsuarioReceptor,
         COUNT(idSolicitudAmistad) AS total_seguidores
     FROM
         solicitud_amistad
     WHERE
-        estado = 'aceptada' -- Asumiendo que "seguir" es una solicitud aceptada
+        estado = 'aceptada'
     GROUP BY
         idUsuarioReceptor
-) seguidores ON u.idUsuario = seguidores.idUsuarioReceptor
+    ) seguidores ON u.idUsuario = seguidores.idUsuarioReceptor
 
-WHERE
-    u.idUsuario = ?; -- Reemplaza '?' con el ID de usuario deseado
+    WHERE
+    u.idUsuario = ?;
   `;
   return db.query(sql, [idUsuario])
   .then(([usuario]) => {
