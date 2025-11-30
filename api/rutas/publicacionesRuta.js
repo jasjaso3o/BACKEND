@@ -44,10 +44,10 @@ router.post("/", function(req, res, next){
   .then((publicacionCreada) => {
       res.json(publicacionCreada);
     })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send("Ocurrió un error al crear la publicación");
-    })
+  .catch((error) => {
+    console.error(error);
+    res.status(500).send("Ocurrió un error al crear la publicación");
+  })
 })
 
 

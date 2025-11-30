@@ -2,8 +2,6 @@ const router = require('express').Router();
 const loginServicios = require('../servicios/loginServicios');
 const { createHash } = require('node:crypto');
 
-
-
 router.get('/', (req, res) => {
   res.status(200).send("Servicio de login activo");
 });
@@ -17,11 +15,6 @@ router.post('/', (req, res) => {
     })
     .catch(error => {
       console.error(error);
-
-      if (error.codigo) {
-        return res.status(error.codigo).send(error.mensaje);
-      }
-
       res.status(500).send("Ocurrió un error");
     });
 });

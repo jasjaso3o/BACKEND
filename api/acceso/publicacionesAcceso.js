@@ -24,7 +24,7 @@ const sql = `
 
   return db.query(sql)
   .then(([publicaciones]) => {
-    console.log('RESULTADO:', publicaciones);
+    //console.log('RESULTADO:', publicaciones);
     return publicaciones;
   })
   .catch((error) => {

@@ -16,4 +16,8 @@ const loginRouter = require('./rutas/loginRuta');
 
 router.use("/login", loginRouter);
 
+const registroRouter = require('./rutas/registroRuta');
+
+router.use("/signup", registroRouter);
+
 module.exports = router;
