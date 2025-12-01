@@ -11,7 +11,7 @@ async function registrarse(usuarioDatos) {
 
   const emailExiste = await registroAcceso.duplicadosEmail(usuarioDatos.email);
   if (emailExiste) {
-    throw { status: 409, mensaje: 'El email ya está registrado, intenta con otro' };
+    throw { status: 422, mensaje: 'El email ya está registrado, intenta con otro' };
   }
 
   const passwordHasheada = hashPass(usuarioDatos.password);
@@ -19,14 +19,14 @@ async function registrarse(usuarioDatos) {
   usuarioDatos.password = passwordHasheada;
   console.log(usuarioDatos);
 
-  const usuarioCreado = await registroAcceso.registrarse(usuarioDatos);
+  //const [usuarioCreado] = await registroAcceso.registrarse(usuarioDatos);
 
   const token = generarToken(
     TOKEN_SECRET,
     1,
     { id: usuarioDatos.idUsuario, rol: usuarioDatos.rol}
   );
-  return { usuarioCreado, token };
+  return { token };
 }
 
 module.exports = {

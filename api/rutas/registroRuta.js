@@ -5,12 +5,15 @@ router.post('/', (req,res, next) => {
   const usuarioDatos = req.body;
 
   registroServicios.registrarse(usuarioDatos)
-    .then(() => {
-      res.status(201).json({ status: "ok", token: token });
+    .then((token) => {
+      res.status(201).json({ status: "usuario registrado", token: token});
     })
     .catch(error => {
       console.error(error);
-      res.status(500).send("Ocurrió un error al registrar el usuario");
+      const status = error.status || 500;
+      const mensaje = error.mensaje || "Ocurrió un error al registrar el usuario";
+
+      res.status(status).json({ mensaje });
     });
 });
 
