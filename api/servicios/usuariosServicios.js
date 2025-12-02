@@ -4,6 +4,10 @@ function obtenerUsuarios() {
   return usuariosAcceso.obtenerUsuarios();
 }
 
+function obtenerUsuariosAdmin() {
+  return usuariosAcceso.obtenerUsuariosAdmin();
+}
+
 function obtenerUsuarioPorId(idUsuario) {
   return usuariosAcceso.obtenerUsuarioPorId(idUsuario);
 }
@@ -45,6 +49,10 @@ function eliminarUsuario(idUsuario) {
   return usuariosAcceso.eliminarUsuario(idUsuario);
 }
 
+function cerrarSesion(token) {
+  
+}
+
 module.exports = {
-  obtenerUsuarios,  obtenerUsuarioPorId, crearUsuario, actualizarUsuario, eliminarUsuario
+  obtenerUsuarios, obtenerUsuariosAdmin, obtenerUsuarioPorId, crearUsuario, actualizarUsuario, eliminarUsuario
 }

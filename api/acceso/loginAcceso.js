@@ -2,7 +2,7 @@ const db = require('../conexion');
 
 function buscarPorNombreUsuario(nombreUsuario) {
   const sql = `
-    SELECT idUsuario, apodo, nombreUsuario, password
+    SELECT idUsuario, apodo, nombreUsuario, password, rol
     FROM usuarios
     WHERE nombreUsuario = ?
   `;

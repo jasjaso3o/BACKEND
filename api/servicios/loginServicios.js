@@ -9,7 +9,7 @@ function iniciarSesion(nombreUsuario, password) {
         throw { codigo: 401, mensaje: "Usuario y/o contraseña incorrecto" };
       }
       
-      console.log(hashPass(password));
+      //console.log(hashPass(password));
       
       const passCoinciden = verificarPass(password, usuario.password);
 

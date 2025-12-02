@@ -23,7 +23,32 @@ function obtenerUsuarios() {
     throw error;
   })
 }
-    
+
+function obtenerUsuariosAdmin() {
+  const sql = `
+  SELECT 
+    idUsuario,
+    nombreUsuario,
+    fotoPerfil,
+    portada,
+    apodo,
+    biografiaPrincipal,
+    biografiaSecundaria,
+    privacidad
+    FROM usuarios
+  `;
+  return db.query(sql)
+  .then(([usuarios]) => {
+    console.log('RESULTADO:', usuarios);
+    return usuarios;
+  })
+  .catch((error) => {
+    console.error('ERROR EN CONSULTA:', error);
+    throw error;
+  })
+}
+
+
 function obtenerUsuarioPorId(idUsuario) {
   const sql = `SELECT
     u.idUsuario,
@@ -155,5 +180,5 @@ function eliminarUsuario(idUsuario) {
 
 
 module.exports = {
-  obtenerUsuarios, crearUsuario, obtenerUsuarioPorId, actualizarUsuario, eliminarUsuario
+  obtenerUsuarios, obtenerUsuariosAdmin, crearUsuario, obtenerUsuarioPorId, actualizarUsuario, eliminarUsuario
 }

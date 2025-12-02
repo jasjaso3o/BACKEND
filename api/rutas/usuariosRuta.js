@@ -1,11 +1,25 @@
 const router = require('express').Router();
 const usuariosServicio = require('../servicios/usuariosServicios');
+const middleware = require('../middleware');
 
 router.get("/", function(req, res, next){
   const { busqueda } = req.query;
   
   usuariosServicio.obtenerUsuarios(busqueda)
     .then((usuarios) => {
+      res.json(usuarios);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Ocurrió un error al obtener usuarios");
+    })
+})
+
+router.get("/administrador", middleware, function(req, res, next) {
+  const { busqueda } = req.query;
+
+  usuariosServicio.obtenerUsuariosAdmin(busqueda)
+  .then((usuarios) => {
       res.json(usuarios);
     })
     .catch((error) => {
