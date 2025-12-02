@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const middleware = require('./middleware');
+//const middleware = require('./middleware');
 
 
 const publicacionesRouter = require('./rutas/publicacionesRuta');
@@ -8,7 +8,7 @@ router.use("/publicaciones", publicacionesRouter);
 
 const usuariosRouter = require('./rutas/usuariosRuta');
 
-router.use("/usuarios", middleware, usuariosRouter);
+router.use("/usuarios", usuariosRouter);
 
 const comentariosRouter = require('./rutas/comentariosRuta');
 

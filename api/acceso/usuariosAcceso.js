@@ -115,7 +115,7 @@ function obtenerUsuarioPorId(idUsuario) {
   return db.query(sql, [idUsuario])
   .then(([usuario]) => {
     console.log('RESULTADO:', usuario);
-    return usuario;
+    return usuario[0]||null;
   })
   .catch((error) => {
     console.error('ERROR EN CONSULTA:', error);
