@@ -1,7 +1,7 @@
 const comentariosAcceso = require('../acceso/comentariosAcceso');
 
-function obtenerComentarios(idPublicacion) {
-  return comentariosAcceso.obtenerComentarios(idPublicacion);
+function obtenerComentariosPub(idPublicacion) {
+  return comentariosAcceso.obtenerComentariosPub(idPublicacion);
 }
 
 function crearComentario(comentarioDatos) {
@@ -14,5 +14,5 @@ function eliminarComentario(idComentario) {
 
 
 module.exports = {
-  obtenerComentarios, crearComentario, eliminarComentario
+  obtenerComentariosPub, crearComentario, eliminarComentario
 }

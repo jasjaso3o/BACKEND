@@ -22,10 +22,10 @@ router.get("/administrador", middleware, function(req, res, next) {
   .then((usuarios) => {
       res.json(usuarios);
     })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send("Ocurrió un error al obtener usuarios");
-    })
+  .catch((error) => {
+    console.error(error);
+    res.status(500).send("Ocurrió un error al obtener usuarios");
+  })
 })
 
 router.get("/:idUsuario", function(req, res, next){

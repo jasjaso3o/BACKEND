@@ -5,7 +5,7 @@ router.get("/:idPublicacion", function(req, res, next){
   const { busqueda } = req.query;
   const { idPublicacion } = req.params;
   
-  comentariosServicio.obtenerComentarios(busqueda, idPublicacion)
+  comentariosServicio.obtenerComentariosPub(busqueda, idPublicacion)
     .then((comentarios) => {
       res.json(comentarios);
     })

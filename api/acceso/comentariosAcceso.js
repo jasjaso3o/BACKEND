@@ -1,12 +1,18 @@
 const db = require('../conexion');
 
-function obtenerComentarios() {
+function obtenerComentariosPub(idPublicacion) {
   const sql = `
-    SELECT *
+    SELECT 
+      idComentario,
+      contenido,
+      fechaCreacion,
+      idPublicacion,
+      idUsuario
       FROM comentarios
+    WHERE idPublicacion = ?
   `;
 
-  return db.query(sql)
+  return db.query(sql, [idPublicacion])
   .then(([comentarios]) => {
     console.log('RESULTADO:', comentarios);
     return comentarios;
@@ -47,5 +53,5 @@ function eliminarComentario(idComentario) {
 }
 
 module.exports = {
-  obtenerComentarios, crearComentario, eliminarComentario
+  obtenerComentariosPub, crearComentario, eliminarComentario
 }
