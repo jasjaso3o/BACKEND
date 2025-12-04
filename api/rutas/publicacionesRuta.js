@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const publicacionesServicio = require('../servicios/publicacionesServicios');
+const middleware = require('../middleware');
 
 router.get("/", function(req, res, next){
   const { busqueda} = req.query;
@@ -38,8 +39,9 @@ router.get("/:idPublicacion", function(req, res, next){
     });
 })
 
-router.post("/", function(req, res, next){
+router.post("/", middleware, function(req, res, next){
   const publicacionDatos = req.body;
+  console.log('Datos de la publicación recibidos en la ruta:', publicacionDatos);
   publicacionesServicio.crearPublicacion(publicacionDatos)
   .then((publicacionCreada) => {
       res.json(publicacionCreada);

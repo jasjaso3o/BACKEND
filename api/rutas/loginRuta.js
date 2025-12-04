@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const loginServicios = require('../servicios/loginServicios');
-const { createHash } = require('node:crypto');
 
 router.get('/', (req, res) => {
   res.status(200).send("Servicio de login activo");
