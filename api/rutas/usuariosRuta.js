@@ -28,9 +28,9 @@ router.get("/administrador", middleware, function(req, res, next) {
   })
 })
 
+//traer el perfil de un usuario
 router.get("/:idUsuario", function(req, res, next){
-  const { busqueda } = req.query;
-  const {idUsuario} = req.params;
+  const { idUsuario } = req.params;
   
   usuariosServicio.obtenerUsuarioPorId(idUsuario)
     .then((usuarios) => {
@@ -56,13 +56,11 @@ router.post("/", function(req, res, next){
     }) 
 })
 
-router.put("/:idUsuario", function(req, res, next){
+router.put("/:idUsuario", middleware, function(req, res, next){
   const {idUsuario} = req.params;
-  const usuarioDatos = req.body.datos;
-  //solo por el momento hasta el jwt
-  const usuarioQueEdita = req.body.usuario;
+  const usuarioDatos = req.body;
 
-  usuariosServicio.actualizarUsuario(idUsuario, usuarioDatos, usuarioQueEdita)
+  usuariosServicio.actualizarUsuario(idUsuario, usuarioDatos)
   .then((usuarioActualizado) => {
     res.json(usuarioActualizado);
   })

@@ -22,4 +22,7 @@ const registroRouter = require('./rutas/registroRuta');
 
 router.use("/signup", registroRouter);
 
+//app.use('/public', express.static('public'));
+
+
 module.exports = router;
