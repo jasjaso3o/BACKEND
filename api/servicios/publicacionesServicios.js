@@ -1,7 +1,7 @@
 const publicacionesAcceso = require('../acceso/publicacionesAcceso');
 
-function obtenerPublicacionesBD() {
-  return publicacionesAcceso.obtenerPublicacionesBD();
+function obtenerPublicacionesBD(limit, offset) {
+  return publicacionesAcceso.obtenerPublicacionesBD(limit, offset);
 }
 
 function obtenerPublicacionesPorUsuario(idUsuario) {

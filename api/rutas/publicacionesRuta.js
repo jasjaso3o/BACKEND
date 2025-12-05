@@ -3,10 +3,14 @@ const publicacionesServicio = require('../servicios/publicacionesServicios');
 const middleware = require('../middleware');
 
 router.get("/", function(req, res, next){
-  const { busqueda} = req.query;
+  //const { busqueda} = req.query;
+  const limit = Number(req.query.limit) || 20;  
+  const offset = Number(req.query.offset) || 0;
   
-  publicacionesServicio.obtenerPublicacionesBD(busqueda)
+  publicacionesServicio.obtenerPublicacionesBD(limit, offset)
     .then((publicaciones) => {
+      console.log(publicaciones, 'hola');
+      
       res.json(publicaciones);
     })
     .catch((error) => {

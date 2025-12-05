@@ -1,6 +1,6 @@
 const db = require('../conexion');
 
-function obtenerPublicacionesBD() {
+function obtenerPublicacionesBD(limit, offset) {
 const sql = `
   SELECT 
       u.idUsuario,
@@ -20,9 +20,10 @@ const sql = `
     LEFT JOIN reacciones r ON p.idPublicacion = r.idPublicacion
     GROUP BY p.idPublicacion
     ORDER BY p.fechaCreacion DESC
+    LIMIT ? OFFSET ?
   `;
 
-  return db.query(sql)
+  return db.query(sql, [limit, offset])
   .then(([publicaciones]) => {
     //console.log('RESULTADO:', publicaciones);
     return publicaciones;
