@@ -4,8 +4,16 @@ function obtenerPublicacionesBD(limit, offset) {
   return publicacionesAcceso.obtenerPublicacionesBD(limit, offset);
 }
 
-function obtenerPublicacionesPorUsuario(idUsuario) {
-  return publicacionesAcceso.obtenerPublicacionesPorUsuario(idUsuario);
+function obtenerTotalPubs() {
+  return publicacionesAcceso.obtenerTotalPubs();
+}
+
+function obtenerTotalPubsUsuario(idUsuario) {
+  return publicacionesAcceso.obtenerTotalPubsUsuario(idUsuario);
+}
+
+function obtenerPublicacionesPorUsuario(idUsuario, limit, offset) {
+  return publicacionesAcceso.obtenerPublicacionesPorUsuario(idUsuario, limit, offset);
 }
 
 function obtenerPublicacion(idPublicacion) {
@@ -35,5 +43,5 @@ function eliminarPublicacion(idPublicacion) {
 }
 
 module.exports = {
-  obtenerPublicacionesBD, obtenerPublicacionesPorUsuario, obtenerPublicacion, crearPublicacion, eliminarPublicacion
+  obtenerPublicacionesBD, obtenerTotalPubs, obtenerTotalPubsUsuario, obtenerPublicacionesPorUsuario, obtenerPublicacion, crearPublicacion, eliminarPublicacion
 }

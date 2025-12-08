@@ -4,7 +4,7 @@ const middleware = require('../middleware');
 
 router.get("/", function(req, res, next){
   //const { busqueda} = req.query;
-  const limit = Number(req.query.limit) || 20;  
+  const limit = Number(req.query.limit) || 10;  
   const offset = Number(req.query.offset) || 0;
   
   publicacionesServicio.obtenerPublicacionesBD(limit, offset)
@@ -19,11 +19,37 @@ router.get("/", function(req, res, next){
     })
 })
 
+router.get("/total", function(req, res) {
+  publicacionesServicio.obtenerTotalPubs()
+    .then((total) => {
+      res.json({ total });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Ocurrió un error al obtener el total de publicaciones");
+    });
+})
+
+router.get("/total/:idUsuario", function(req, res) {
+  const { idUsuario } = req.params;
+
+  publicacionesServicio.obtenerTotalPubsUsuario(idUsuario)
+    .then((total) => {
+      res.json({ total });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Ocurrió un error al obtener el total de publicaciones del usuario");
+    });
+})
+
 router.get("/usuario/:idUsuario", function(req, res, next){
   const { idUsuario } = req.params;
-  const { busqueda } = req.query;
+  //const { busqueda } = req.query;
+  const limit = Number(req.query.limit) || 10;  
+  const offset = Number(req.query.offset) || 0;
   
-  publicacionesServicio.obtenerPublicacionesPorUsuario(idUsuario, busqueda)
+  publicacionesServicio.obtenerPublicacionesPorUsuario(idUsuario, limit, offset)
     .then((publicaciones) => res.json(publicaciones))
     .catch((error) => {
       console.error(error);

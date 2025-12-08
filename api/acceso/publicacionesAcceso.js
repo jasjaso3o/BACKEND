@@ -25,7 +25,7 @@ const sql = `
 
   return db.query(sql, [limit, offset])
   .then(([publicaciones]) => {
-    //console.log('RESULTADO:', publicaciones);
+    console.log('RESULTADO:', publicaciones);
     return publicaciones;
   })
   .catch((error) => {
@@ -34,7 +34,24 @@ const sql = `
   })
 }
 
-function obtenerPublicacionesPorUsuario (idUsuario) {
+function obtenerTotalPubs() {
+  const sql = `SELECT COUNT(*) AS total FROM publicacion`;
+  return db.query(sql)
+  .then(([rows]) => {
+    return rows[0].total;
+  })}
+
+function obtenerTotalPubsUsuario(idUsuario) {
+  const sql = `SELECT COUNT(*) AS total 
+    FROM publicacion p LEFT JOIN usuarios u on p.idUsuario = u.idUsuario
+    WHERE p.idUsuario = ? 
+  `;
+  return db.query(sql, [idUsuario])
+  .then(([rows]) => {
+    return rows[0].total;
+  })}
+
+function obtenerPublicacionesPorUsuario (idUsuario, limit, offset) {
   const sql = `
     SELECT 
       u.idUsuario,
@@ -55,8 +72,9 @@ function obtenerPublicacionesPorUsuario (idUsuario) {
     WHERE p.idUsuario = ?
     GROUP BY p.idPublicacion
     ORDER BY p.fechaCreacion DESC
+    LIMIT ? OFFSET ?
   `;
-  return db.query(sql, [idUsuario])
+  return db.query(sql, [idUsuario, limit, offset])
   .then(([publicaciones]) => {
     console.log('RESULTADO:', publicaciones);
     return publicaciones;
@@ -135,6 +153,6 @@ function eliminarPublicacion(idPublicacion) {
 }
 
 module.exports = {
-  obtenerPublicacionesBD, obtenerPublicacionesPorUsuario, obtenerPublicacion, crearPublicacion, eliminarPublicacion, buscarPorId
+  obtenerPublicacionesBD, obtenerTotalPubs, obtenerTotalPubsUsuario, obtenerPublicacionesPorUsuario, obtenerPublicacion, crearPublicacion, eliminarPublicacion, buscarPorId
 }
 
