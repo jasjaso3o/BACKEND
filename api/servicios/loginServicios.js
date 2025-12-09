@@ -9,7 +9,7 @@ function iniciarSesion(nombreUsuario, password) {
         throw { codigo: 401, mensaje: "Usuario y/o contraseña incorrecto" };
       }
       
-      //console.log(hashPass(password));
+      console.log(hashPass(password));
       
       const passCoinciden = verificarPass(password, usuario.password);
 
@@ -18,9 +18,9 @@ function iniciarSesion(nombreUsuario, password) {
       }
 
       const token = generarToken(
-        TOKEN_SECRET,
-        4,
-        { id: usuario.idUsuario, rol: usuario.rol }
+        TOKEN_SECRET, //contraseña para firmar
+        0.1, //duracion en horas
+        { id: usuario.idUsuario, rol: usuario.rol } //datos a incluir en el token
       );
 
       return { token };

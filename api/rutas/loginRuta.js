@@ -1,10 +1,6 @@
 const router = require('express').Router();
 const loginServicios = require('../servicios/loginServicios');
 
-router.get('/', (req, res) => {
-  res.status(200).send("Servicio de login activo");
-});
-
 router.post('/', (req, res) => {
   const { nombreUsuario, password } = req.body;
 
