@@ -123,28 +123,27 @@ function obtenerUsuarioPorId(idUsuario) {
   })
 }
     
-function actualizarUsuario(idUsuario, usuarioDatos) {
-  const { nombreUsuario, fotoPerfil, portada, apodo, biografiaPrincipal, biografiaSecundaria, privacidad } = usuarioDatos;
+function actualizarUsuario(idUsuario, campos) {
+  const columnas = Object.keys(campos);
 
-  let sql = "UPDATE usuarios SET nombreUsuario = ?, fotoPerfil = ?, portada = ?, apodo = ?, biografiaPrincipal = ?, biografiaSecundaria = ?, privacidad = ? WHERE idUsuario = ?";
-  return db.query(sql, [
-    nombreUsuario,
-    fotoPerfil,
-    portada,
-    apodo,
-    biografiaPrincipal,
-    biografiaSecundaria,
-    privacidad,
-    idUsuario
-  ])
-  .then(([result]) => {
-    console.log("Usuario editado");
-    return result;
-  })
-  .catch((error) => {
-    console.error(error);
-    throw error;
-  });
+  const sql = `
+    UPDATE usuarios
+    SET ${columnas.map(c => `${c} = ?`).join(", ")}
+    WHERE idUsuario = ?
+  `;
+
+  const valores = columnas.map(c => campos[c]);
+  valores.push(idUsuario);
+
+  return db.query(sql, valores)
+    .then(([result]) => {
+      console.log("Usuario editado parcialmente");
+      return result;
+    })
+    .catch((error) => {
+      console.error(error);
+      throw error;
+    });
 }
 
 function crearUsuario({nombreUsuario, email, password, fotoPerfil, portada, apodo, biografiaPrincipal, biografiaSecundaria, privacidad}) {

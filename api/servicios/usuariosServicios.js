@@ -16,25 +16,51 @@ function crearUsuario(usuarioDatos) {
   return usuariosAcceso.crearUsuario(usuarioDatos);
 }
 
-//usuarioQueEdita es para editar el usuario sin la clave jwt por ahora
 function actualizarUsuario(idUsuario, usuarioDatos) {
   return usuariosAcceso.obtenerUsuarioPorId(idUsuario)
-    .then(usuario => {
-  
-      if (!usuario) {
+    .then(usuarioActual => {
+
+      if (!usuarioActual) {
         const error = new Error("El usuario no existe");
         error.codigo = 404;
         throw error;
       }
-  
-      return usuariosAcceso.actualizarUsuario(idUsuario, usuarioDatos);
+
+      const camposPermitidos = [
+        "nombreUsuario",
+        "fotoPerfil",
+        "portada",
+        "apodo",
+        "biografiaPrincipal",
+        "biografiaSecundaria",
+        "privacidad"
+      ];
+
+      const camposActualizados = {};
+
+      camposPermitidos.forEach(campo => {
+        const nuevoValor = usuarioDatos[campo];
+
+        if (nuevoValor === "" || nuevoValor === null || nuevoValor === undefined) {
+          return;
+        }
+
+        camposActualizados[campo] = nuevoValor;
+      });
+
+      if (Object.keys(camposActualizados).length === 0) {
+        return { ok: true, mensaje: "No hubo cambios" };
+      }
+
+      return usuariosAcceso.actualizarUsuario(idUsuario, camposActualizados);
     })
     .then(() => ({
       ok: true,
       mensaje: "Usuario actualizado correctamente"
     }));
-  
 }
+
+
 
 function eliminarUsuario(idUsuario) {
   console.log('fdfksdfdsf', idUsuario);

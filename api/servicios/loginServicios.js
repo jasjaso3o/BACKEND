@@ -19,9 +19,12 @@ function iniciarSesion(nombreUsuario, password) {
 
       const token = generarToken(
         TOKEN_SECRET, //contraseña para firmar
-        0.1, //duracion en horas
+        1, //duracion en horas
         { id: usuario.idUsuario, rol: usuario.rol } //datos a incluir en el token
       );
+
+      console.log('token: ', token);
+      
 
       return { token };
     });
