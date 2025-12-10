@@ -17,9 +17,12 @@ async function registrarse(usuarioDatos) {
   const passwordHasheada = hashPass(usuarioDatos.password);
   
   usuarioDatos.password = passwordHasheada;
+
+  //const [resultado] = await registroAcceso.registrarse(usuarioDatos);
+
   console.log(usuarioDatos);
 
-  //const [usuarioCreado] = await registroAcceso.registrarse(usuarioDatos);
+  const [usuarioCreado] = await registroAcceso.registrarse(usuarioDatos);
 
   const token = generarToken(
     TOKEN_SECRET,

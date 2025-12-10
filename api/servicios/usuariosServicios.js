@@ -37,7 +37,7 @@ function actualizarUsuario(idUsuario, usuarioDatos) {
       ];
 
       const camposActualizados = {};
-
+        //modificar ifs
       camposPermitidos.forEach(campo => {
         const nuevoValor = usuarioDatos[campo];
 

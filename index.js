@@ -34,6 +34,9 @@ app.get('/', function(req, res, next){
 
 app.use('/api', apiRouter);
 
+app.use('/public', express.static('public'));
+
+
 app.listen(PORT, function(error) {
   if (error){
     console.error(error);
