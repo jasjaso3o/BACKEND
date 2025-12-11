@@ -3,10 +3,12 @@ const registroServicios = require('../servicios/registroServicios');
 
 router.post('/', (req,res, next) => {
   const usuarioDatos = req.body;
+  console.log('datos del usuario que se quiere registrar', usuarioDatos);
+  
 
   registroServicios.registrarse(usuarioDatos)
     .then((token) => {
-      res.status(201).json({ status: "usuario registrado", token: token});
+      res.status(201).json({ status: "usuario registrado", token});
     })
     .catch(error => {
       console.error(error);

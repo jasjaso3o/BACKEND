@@ -20,16 +20,24 @@ async function registrarse(usuarioDatos) {
 
   //const [resultado] = await registroAcceso.registrarse(usuarioDatos);
 
-  console.log(usuarioDatos);
+  console.log("usuario registrandose",usuarioDatos);
 
   const [usuarioCreado] = await registroAcceso.registrarse(usuarioDatos);
+  const nuevoUsuario = {
+    idUsuario: usuarioCreado.insertId,
+  }
+
 
   const token = generarToken(
     TOKEN_SECRET,
     1,
-    { id: usuarioDatos.idUsuario, rol: usuarioDatos.rol}
+    { id: nuevoUsuario.idUsuario, rol: "usuario"}
   );
-  return { token };
+
+  console.log('token de autenticacion: ', token);
+
+  return token ;
+  
 }
 
 module.exports = {

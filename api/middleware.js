@@ -6,10 +6,8 @@ function middleware(req, res, next) {
 
   const verificacion = verificarToken(token, TOKEN_SECRET);
 
-  // Si es un mensaje de error:
   if (typeof verificacion === "string") {
 
-    // Token expirado
     if (verificacion.startsWith("Token expirado")) {
       return res.status(401).send({
         error: "TOKEN_EXPIRADO",
@@ -17,14 +15,12 @@ function middleware(req, res, next) {
       });
     }
 
-    // Otros errores
     return res.status(401).send({
       error: "TOKEN_INVALIDO",
       mensaje: verificacion
     });
   }
 
-  // Si está todo bien:
   req.user = verificacion.data;
   next();
 }

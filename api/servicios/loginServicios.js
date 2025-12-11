@@ -23,7 +23,7 @@ function iniciarSesion(nombreUsuario, password) {
         { id: usuario.idUsuario, rol: usuario.rol } //datos a incluir en el token
       );
 
-      console.log('token: ', token);
+      console.log('token de autenticacion: ', token);
       
 
       return { token };

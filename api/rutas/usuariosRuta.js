@@ -71,7 +71,7 @@ router.put("/:idUsuario", middleware, function(req, res, next){
 })
 
 
-router.delete("/:idUsuario", function(req, res, next){
+router.delete("/:idUsuario", middleware, function(req, res, next){
   const {idUsuario} = req.params;
 
   usuariosServicio.eliminarUsuario(idUsuario)

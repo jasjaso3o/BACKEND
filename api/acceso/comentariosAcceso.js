@@ -1,18 +1,29 @@
 const db = require('../conexion');
 
-function obtenerComentariosPub(idPublicacion) {
+function obtenerComentariosPub(idPublicacion, limit, offset) {
   const sql = `
-    SELECT 
-      idComentario,
-      contenido,
-      fechaCreacion,
-      idPublicacion,
-      idUsuario
-      FROM comentarios
-    WHERE idPublicacion = ?
+SELECT 
+    u.idUsuario,
+    u.fotoPerfil,
+    u.nombreUsuario, 
+    u.apodo,
+    c.idComentario,
+    c.contenido,
+    c.fechaCreacion,
+    COUNT(DISTINCT CASE WHEN r.tipo = 'me gusta' THEN r.idReaccion END) as meGusta,
+    COUNT(DISTINCT CASE WHEN r.tipo = 'no me gusta' THEN r.idReaccion END) as noMeGusta
+FROM comentarios c
+LEFT JOIN usuarios u ON c.idUsuario = u.idUsuario
+LEFT JOIN reacciones r ON c.idComentario = r.idComentario
+WHERE c.idPublicacion = ?
+GROUP BY 
+    u.idUsuario, u.fotoPerfil, u.nombreUsuario, u.apodo, 
+    c.idComentario, c.contenido, c.fechaCreacion
+ORDER BY c.fechaCreacion DESC
+LIMIT ? OFFSET ?;
   `;
 
-  return db.query(sql, [idPublicacion])
+  return db.query(sql, [idPublicacion, limit, offset])
   .then(([comentarios]) => {
     console.log('RESULTADO:', comentarios);
     return comentarios;
@@ -23,12 +34,12 @@ function obtenerComentariosPub(idPublicacion) {
   })
 }
 
-function crearComentario({idUsuario, contenido, idPublicacion}) {
+function crearComentario({contenido, idPublicacion, idUsuario}) {
 
-  let sql = "INSERT INTO comentarios (idUsuario, contenido, idPublicacion)";
+  let sql = "INSERT INTO comentarios (contenido, idPublicacion, idUsuario)";
   sql += " VALUES (?, ?, ?)";
 
-  return db.query(sql, [idUsuario, contenido, idPublicacion])
+  return db.query(sql, [contenido, idPublicacion, idUsuario])
   .then((comentarioCreado) => {
     console.log('Comentario creado');  
     return comentarioCreado;

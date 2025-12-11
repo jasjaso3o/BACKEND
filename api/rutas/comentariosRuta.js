@@ -1,11 +1,14 @@
 const router = require('express').Router();
+const middleware = require('../middleware');
 const comentariosServicio = require('../servicios/comentariosServicios');
 
-router.get("/:idPublicacion", function(req, res, next){
-  const { busqueda } = req.query;
+router.get("/:idPublicacion", function(req, res){
   const { idPublicacion } = req.params;
+  const limit = Number(req.query.limit) || 10;  
+  const offset = Number(req.query.offset) || 0;
   
-  comentariosServicio.obtenerComentariosPub(busqueda, idPublicacion)
+  
+  comentariosServicio.obtenerComentariosPub(idPublicacion, limit, offset)
     .then((comentarios) => {
       res.json(comentarios);
     })
@@ -15,7 +18,7 @@ router.get("/:idPublicacion", function(req, res, next){
     })
 })
 
-router.post("/", function(req, res, next){
+router.post("/", middleware, function(req, res, next){
   const comentarioDatos = req.body;
   comentariosServicio.crearComentario(comentarioDatos)
   .then((comentarioCreado) => {

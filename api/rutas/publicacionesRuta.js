@@ -3,7 +3,6 @@ const publicacionesServicio = require('../servicios/publicacionesServicios');
 const middleware = require('../middleware');
 
 router.get("/", function(req, res, next){
-  //const { busqueda} = req.query;
   const limit = Number(req.query.limit) || 10;  
   const offset = Number(req.query.offset) || 0;
   
@@ -83,6 +82,21 @@ router.post("/", middleware, function(req, res, next){
 })
 
 
+router.delete("/:idPublicacion", function(req, res, next){
+  const {idPublicacion} = req.params;
+
+  publicacionesServicio.eliminarPublicacion(idPublicacion)
+  .then(() => {
+    res.status(200).send("eliminado");
+  })
+  .catch((error) => {
+    console.error(error);
+    res.status(500).send("Ocurrió un error");
+  })
+
+  
+})
+
 
 // router.put("/:", function(req, res, next){
 //   const {usuario_id} = req.params;
@@ -99,21 +113,6 @@ router.post("/", middleware, function(req, res, next){
 //     res.status(500).send("Ocurrió un error");
 //   })
 // })
-
-router.delete("/:idPublicacion", function(req, res, next){
-  const {idPublicacion} = req.params;
-
-  publicacionesServicio.eliminarPublicacion(idPublicacion)
-  .then(() => {
-    res.status(200).send("eliminado");
-  })
-  .catch((error) => {
-    console.error(error);
-    res.status(500).send("Ocurrió un error");
-  })
-
-  
-})
 
 
 module.exports = router;
