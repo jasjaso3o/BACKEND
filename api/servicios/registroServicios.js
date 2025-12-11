@@ -36,7 +36,7 @@ async function registrarse(usuarioDatos) {
 
   console.log('token de autenticacion: ', token);
 
-  return token ;
+  return {token} ;
   
 }
 

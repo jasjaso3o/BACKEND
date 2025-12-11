@@ -15,18 +15,18 @@ router.get("/", function(req, res, next){
     })
 })
 
-router.get("/administrador", middleware, function(req, res, next) {
-  const { busqueda } = req.query;
+// router.get("/administrador", middleware, function(req, res, next) {
+//   const { busqueda } = req.query;
 
-  usuariosServicio.obtenerUsuariosAdmin(busqueda)
-  .then((usuarios) => {
-      res.json(usuarios);
-    })
-  .catch((error) => {
-    console.error(error);
-    res.status(500).send("Ocurrió un error al obtener usuarios");
-  })
-})
+//   usuariosServicio.obtenerUsuariosAdmin(busqueda)
+//   .then((usuarios) => {
+//       res.json(usuarios);
+//     })
+//   .catch((error) => {
+//     console.error(error);
+//     res.status(500).send("Ocurrió un error al obtener usuarios");
+//   })
+// })
 
 //traer el perfil de un usuario
 router.get("/:idUsuario", function(req, res, next){
@@ -42,19 +42,17 @@ router.get("/:idUsuario", function(req, res, next){
     })
 })
 
-router.post("/", function(req, res, next){
-  const usuarioDatos = req.body;
-  //const {nombreUsuario, email, password, fotoPerfil, portada, apodo, biografiaPrincipal, biografiaSecundaria, privacidad} = req.body;
-  //usuariosServicio.crearUsuario(nombreUsuario, email, password, fotoPerfil, portada, apodo, biografiaPrincipal, biografiaSecundaria, privacidad)
-  usuariosServicio.crearUsuario(usuarioDatos)
-  .then((usuarioCreado) => {
-      res.json(usuarioCreado);
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send("Ocurrió un error al crear el usuario");
-    }) 
-})
+// router.post("/", function(req, res, next){
+//   const usuarioDatos = req.body;
+//   usuariosServicio.crearUsuario(usuarioDatos)
+//   .then((usuarioCreado) => {
+//       res.json(usuarioCreado);
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//       res.status(500).send("Ocurrió un error al crear el usuario");
+//     }) 
+// })
 
 router.put("/:idUsuario", middleware, function(req, res, next){
   const {idUsuario} = req.params;
@@ -62,6 +60,7 @@ router.put("/:idUsuario", middleware, function(req, res, next){
 
   usuariosServicio.actualizarUsuario(idUsuario, usuarioDatos)
   .then((usuarioActualizado) => {
+    res.status(200).send("usuario actualizado");
     res.json(usuarioActualizado);
   })
   .catch((error) => {

@@ -58,9 +58,8 @@ router.get("/usuario/:idUsuario", function(req, res, next){
 
 router.get("/:idPublicacion", function(req, res, next){
   const { idPublicacion } = req.params;
-  const { busqueda } = req.query;
   
-  publicacionesServicio.obtenerPublicacion(idPublicacion, busqueda)
+  publicacionesServicio.obtenerPublicacion(idPublicacion)
     .then((publicacion) => res.json(publicacion))
     .catch((error) => {
       console.error(error);

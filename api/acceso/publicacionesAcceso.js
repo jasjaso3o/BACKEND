@@ -14,10 +14,11 @@ const sql = `
       p.fechaCreacion,
       COUNT(DISTINCT CASE WHEN r.tipo = 'me gusta' THEN r.idReaccion END) as meGusta,
       COUNT(DISTINCT CASE WHEN r.tipo = 'no me gusta' THEN r.idReaccion END) as noMeGusta,
-      COUNT(DISTINCT CASE WHEN r.tipo = 'comentario' THEN r.idReaccion END) as comentarios
+      COUNT(DISTINCT c.idComentario) AS comentarios
     FROM publicacion p
     LEFT JOIN usuarios u ON p.idUsuario = u.idUsuario
     LEFT JOIN reacciones r ON p.idPublicacion = r.idPublicacion
+    LEFT JOIN comentarios c ON p.idPublicacion = c.idPublicacion
     GROUP BY p.idPublicacion
     ORDER BY p.fechaCreacion DESC
     LIMIT ? OFFSET ?
@@ -65,10 +66,12 @@ function obtenerPublicacionesPorUsuario (idUsuario, limit, offset) {
       p.fechaCreacion,
       COUNT(DISTINCT CASE WHEN r.tipo = 'me gusta' THEN r.idReaccion END) as meGusta,
       COUNT(DISTINCT CASE WHEN r.tipo = 'no me gusta' THEN r.idReaccion END) as noMeGusta,
-      COUNT(DISTINCT CASE WHEN r.tipo = 'comentario' THEN r.idReaccion END) as comentarios
+      COUNT(DISTINCT c.idComentario) AS comentarios
     FROM publicacion p
     LEFT JOIN usuarios u ON p.idUsuario = u.idUsuario
     LEFT JOIN reacciones r ON p.idPublicacion = r.idPublicacion
+    LEFT JOIN comentarios c ON p.idPublicacion = c.idPublicacion
+
     WHERE p.idUsuario = ?
     GROUP BY p.idPublicacion
     ORDER BY p.fechaCreacion DESC
@@ -99,10 +102,11 @@ function obtenerPublicacion (idPublicacion) {
       p.fechaCreacion,
       COUNT(DISTINCT CASE WHEN r.tipo = 'me gusta' THEN r.idReaccion END) as meGusta,
       COUNT(DISTINCT CASE WHEN r.tipo = 'no me gusta' THEN r.idReaccion END) as noMeGusta,
-      COUNT(DISTINCT CASE WHEN r.tipo = 'comentario' THEN r.idReaccion END) as comentarios
+      COUNT(DISTINCT c.idComentario) AS comentarios
     FROM publicacion p
     LEFT JOIN usuarios u ON p.idUsuario = u.idUsuario
     LEFT JOIN reacciones r ON p.idPublicacion = r.idPublicacion
+    LEFT JOIN comentarios c ON p.idPublicacion = c.idPublicacion
     WHERE p.idPublicacion = ?
     GROUP BY p.idPublicacion
     ORDER BY p.fechaCreacion DESC
@@ -118,12 +122,12 @@ function obtenerPublicacion (idPublicacion) {
   })
 }
 
-function crearPublicacion({idUsuario, titulo, descripcion, imagen}) {
+function crearPublicacion({idUsuario, titulo, descripcion}) {
   
-  let sql = "INSERT INTO publicacion (idUsuario, titulo, descripcion, imagen)";
-  sql += " VALUES (?, ?, ?, ?)";
+  let sql = "INSERT INTO publicacion (idUsuario, titulo, descripcion)";
+  sql += " VALUES (?, ?, ?)";
 
-  return db.query(sql, [idUsuario, titulo, descripcion, imagen])
+  return db.query(sql, [idUsuario, titulo, descripcion])
   .then((publicacionCreada) => {
     console.log('Publicación creada');  
     return publicacionCreada;

@@ -30,7 +30,7 @@ router.post("/", middleware, function(req, res, next){
     })
 })
 
-router.delete("/:idComentario", function(req, res, next){
+router.delete("/:idComentario", middleware,function(req, res, next){
   const {idComentario} = req.params;
 
   comentariosServicio.eliminarComentario(idComentario)
