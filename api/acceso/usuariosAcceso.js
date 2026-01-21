@@ -7,6 +7,7 @@ function obtenerUsuarios() {
     nombreUsuario,
     fotoPerfil,
     portada,
+    fondoPerfilPublicaciones,
     apodo,
     biografiaPrincipal,
     biografiaSecundaria,
@@ -31,6 +32,7 @@ function obtenerUsuariosAdmin() {
     nombreUsuario,
     fotoPerfil,
     portada,
+    fondoPerfilPublicaciones,
     apodo,
     biografiaPrincipal,
     biografiaSecundaria,
@@ -56,6 +58,7 @@ function obtenerUsuarioPorId(idUsuario) {
     u.apodo,
     u.fotoPerfil,
     u.portada,
+    u.fondoPerfilPublicaciones,
     u.biografiaPrincipal,
     u.biografiaSecundaria,
     COALESCE(p.total_publicaciones, 0) AS totalPublicaciones,
@@ -146,12 +149,12 @@ function actualizarUsuario(idUsuario, campos) {
     });
 }
 
-function crearUsuario({nombreUsuario, email, password, fotoPerfil, portada, apodo, biografiaPrincipal, biografiaSecundaria, privacidad}) {
+function crearUsuario({nombreUsuario, email, password, fotoPerfil, portada, fondoPerfilPublicaciones, apodo, biografiaPrincipal, biografiaSecundaria, privacidad}) {
       
-  let sql = "INSERT INTO usuarios (nombreUsuario, email, password, fotoPerfil, portada, apodo, biografiaPrincipal, biografiaSecundaria, privacidad)";
-  sql += " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  let sql = "INSERT INTO usuarios (nombreUsuario, email, password, fotoPerfil, portada, fondoPerfilPublicaciones, apodo, biografiaPrincipal, biografiaSecundaria, privacidad)";
+  sql += " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-  return db.query(sql, [nombreUsuario, email, password, fotoPerfil, portada, apodo, biografiaPrincipal, biografiaSecundaria, privacidad])
+  return db.query(sql, [nombreUsuario, email, password, fotoPerfil, portada, fondoPerfilPublicaciones, apodo, biografiaPrincipal, biografiaSecundaria, privacidad])
   .then((usuarioCreado) => {
     console.log('Usuario creado');  
     return usuarioCreado;

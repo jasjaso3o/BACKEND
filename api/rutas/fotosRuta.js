@@ -15,8 +15,6 @@ router.get("/portada", (req, res) => {
 
     const fotos = archivos.map(nombre => `/public/portadas/${nombre}`);
 
-
-
     res.json(fotos);
   });
 });
@@ -41,6 +39,22 @@ router.get("/perfil", (req, res) => {
 
     //para traer todas las fotos
     //http://localhost:3606/api/fotos/perfil
+    res.json(fotos);
+  });
+});
+
+router.get("/fondoPublicaciones", (req, res) => {
+  const carpetaPortadas = path.join(__dirname, "../../public/fotosPerfilPublicaciones");
+
+  fs.readdir(carpetaPortadas, (err, archivos) => {
+    if (err) {
+      console.error("Error al leer la carpeta de fotosPerfilPublicaciones:", err);
+      return res.status(500).json({
+        error: "No se pudo obtener las fotos de fondo de publicaciones"
+      });
+    }
+
+    const fotos = archivos.map(nombre => `/public/fotosPerfilPublicaciones/${nombre}`);
     res.json(fotos);
   });
 });
