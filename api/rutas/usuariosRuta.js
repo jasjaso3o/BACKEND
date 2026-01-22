@@ -54,14 +54,13 @@ router.get("/:idUsuario", function(req, res, next){
 //     }) 
 // })
 
-router.put("/:idUsuario", middleware, function(req, res, next){
+router.put("/:idUsuario", middleware, function(req, res){
   const {idUsuario} = req.params;
   const usuarioDatos = req.body;
 
   usuariosServicio.actualizarUsuario(idUsuario, usuarioDatos)
   .then((usuarioActualizado) => {
-    res.status(200).send("usuario actualizado");
-    res.json(usuarioActualizado);
+    res.status(200).json(usuarioActualizado);
   })
   .catch((error) => {
     console.error(error);
